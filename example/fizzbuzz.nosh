@@ -1,0 +1,17 @@
+fun fizzbuzz $n $max {
+  if $n % 3 == 0 {
+    print "Fizz"
+  } else if $n % 5 == 0 {
+    print "Buzz"
+  } else if $n % 15 == 0 {
+    print "Fizz Buzz"
+  } else {
+    print $n
+  }
+
+  if $n < $max {
+    fizzbuzz ($n + 1) $max
+  }
+}
+
+fizzbuzz 1 50
