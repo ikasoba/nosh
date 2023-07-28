@@ -25,11 +25,13 @@ type Ast =
     | GeOperator of Ast * Ast
     | AssignOperator of Ast * Ast
     | PropertyAccessOperator of Ast * Ast
+    | PipelineOperator of Ast * Ast
     | DefineFunctionStmt of Ast * Ast list * Ast list
+    | DefineVariableStmt of Ast * Ast
     | ReturnStmt of Ast
-    | IfStmt of  Ast * Ast list * Ast list option
+    | IfStmt of Ast * Ast list * Ast list option
+    | ExportStmt of string * Ast
 
-    static member getIdentName (ast: Ast) =
+    static member getIdentName(ast: Ast) =
         match ast with
-        | IdentLiteral(ident) ->
-            ident
+        | IdentLiteral(ident) -> ident

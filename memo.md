@@ -28,7 +28,7 @@ marp: true
   _class: center
 -->
 
-# pwsh の親戚を作った話
+# pwsh の親戚を作った(作ってる)話
 
 ---
 
@@ -43,7 +43,7 @@ marp: true
 - 好きなもの
 
   - PowerShell
-  - TS, Haxe
+  - JS, TS, Haxe, aiscript など
   - 犬
 
 - こういうのは初めてで緊張しますが がんばります！
@@ -52,11 +52,7 @@ marp: true
 
 ---
 
-<!-- _class: center -->
-
 # なぜ作ろうと思ったのか
-
----
 
 <div class="x1.25 center" style="flex-direction: column;">
 
@@ -67,60 +63,69 @@ marp: true
 
 ---
 
-<div class="center" style="position: fixed; top: 0; left: 0; z-index: 1;">
-  <h1 style="color: red; background-color: white; border-radius: 512px; padding: 0.8rem;">
-    「PowerShellでプログラム書くのはつらい！」
-  </h1>
-</div>
+<div class="center" style="flex-direction: column;">
 
-<div style="position: fixed; bottom: 2rem; font-size: 1.5rem">
+<h1>PowerShellでコード書きたくない！！</h1>
 
-- 動的スコープのせいでクロージャーを書くのがつらい！
-- `Export-ModuleMember` で `class` や `enum` のエクスポートができない！
-- 非同期系が発達してない！
-  - C#でいろいろ書くことでどうにかなるが、
-    イベントループもどきを実装しないとランタイムエラーが起きてしまう
-- `Resolve-Path` はパスが存在してないとエラーになってしまうのがつらい！
-- `.psd1`とか`.psm1`とかなんだよ！！！
-  - （`.psd1`は`package.json`、`.psm1`は`.mjs`みたいなやつだよ）
-    `.psm1`は`.ps1`でいいじゃん！！
-    拡張子の最後の`1`ってなんだよ！！
-- **そもそもシェルでそんなことするな！！！**
+- **動的スコープのせい**でクロージャーを書くと魔境になる
+- `Export-ModuleMember` で `class` や `enum` のエクスポートができない…。
+- 非同期系があまり発達してない
+  - Task の await ができないなど
+  - C#でちょこっと手助けしてくれるコードを書けばなんとかなるけど…。
 
-など…
+<br/>
+なので・・・
 
 </div>
 
 ---
 
-# 機能
+<div class="center" style="flex-direction: column;">
+  <h1>シェルを作ることにした！</h1>
+</div>
 
-- 他のシェルと似たような構文
-- シェルでのプログラムを書きやすく
-  - 静的スコープの採用、dotnet との連携など
+---
 
-```sh
-# 実行可能ファイルや関数の実行
-> ls ()
-> hoge-command ...
-> 1.25.ToString
+# どんなものをつくったのか
 
-# 四則演算とか
-> 1 + 2 * 3 - 4 == 3
+静的スコープで普通の言語とシェルを融合させた感じの構文（ほぼ pwsh）
+
+```
+> $x = "Hello, World!"
+Hello, World!
+> echo $x
+Hello, World!
 ```
 
 ---
 
 # 今後の目標
 
-- :black_square_button: パイプライン演算子
-- :black_square_button: リダイレクト演算子
 - :black_square_button: 静的型付け
 - :black_square_button: LSP 対応
 
-## 実装済み
+その他いろいろ！！！
+
+# 実装済み
 
 - :white_check_mark: 実行可能ファイルの実行
 - :white_check_mark: 関数の定義
 - :white_check_mark: 関数の実行
 - :white_check_mark: 四則演算と論理演算
+- :white_check_mark: パイプライン演算子
+
+---
+
+# おわりに
+
+<div class="x1.25 center" style="flex-direction: column;">
+今回はPowerShellに不満を少しずつ感じ、<br/>
+新しくシェルを作るまでをスライドにしてみました。<br/>
+まだ機能は足りない物が多いですが、<br/>
+少しずつできることを増やしていこうと思います。
+
+<br/><br/>
+
+ありがとうございました。ｍ（＿　＿）ｍ
+
+</div>

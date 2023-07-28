@@ -1,20 +1,22 @@
 ﻿module Nosh.Program
 
+open System
 open System.IO
 open Nosh.lang.Parser
 open Nosh.lang.runtime.Runtime
 open Nosh.cli.Shell
 
 let runtime = new Runtime()
-let globalScope = runtime.createEmptyScope ()
-
-globalScope.set "ShellPrompt" ((fun _ -> $"{Directory.GetCurrentDirectory()}\n: " |> unbox) :> NoshFunction)
-globalScope.set "print" ((fun args -> runtime.reprWrite (unbox<obj> args); null) :> NoshFunction)
+let globalScope = runtime.GlobalScope
 
 if System.Console.IsInputRedirected then
-    printfn "------aaa------"
-    let code = stdin.ReadToEnd ()
+    let state: EvaluateState =
+        { redirectStdout = false
+          redirectStdin = false }
+
+    let code = stdin.ReadToEnd()
     let expr = parseBy astParser code
-    runtime.evalAstList expr globalScope |> Async.RunSynchronously |> printf "%A"
+
+    runtime.evalAstList expr globalScope state |> Async.RunSynchronously |> ignore
 else
     startShell runtime globalScope
